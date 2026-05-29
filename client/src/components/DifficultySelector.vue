@@ -35,7 +35,7 @@ const emit = defineEmits<{
 
 .difficulty-selector h2 {
   font-size: 1.2rem;
-  color: #a0896e;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -52,23 +52,24 @@ const emit = defineEmits<{
   flex-direction: column;
   align-items: center;
   padding: 1rem 2rem;
-  border: 2px solid #e8dcc8;
+  border: 2px solid var(--border);
   border-radius: 12px;
-  background: #fffcf7;
+  background: var(--card-bg);
+  color: var(--text);
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 140px;
 }
 
 .option-btn:hover {
-  border-color: #d4845a;
+  border-color: var(--primary);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 132, 90, 0.15);
+  box-shadow: 0 4px 12px var(--card-shadow);
 }
 
 .option-btn.active {
-  border-color: #d4845a;
-  background: #d4845a;
+  border-color: var(--primary);
+  background: var(--primary);
   color: white;
 }
 

@@ -43,3 +43,36 @@ export async function generateWords(level: DifficultyLevel): Promise<Word[]> {
 
   return words;
 }
+
+export async function translateWord(chinese: string): Promise<Word[]> {
+  const prompt = `将以下中文翻译成英文单词，返回JSON数组格式：
+[{"word": "apple", "phonetic": "/ˈæpl/", "meaning": "苹果"}]
+要求：
+1. 输入：${chinese}
+2. 如果有多个常用翻译，最多返回3个
+3. 只返回JSON数组，不要其他内容
+4. phonetic 使用国际音标
+5. meaning 用中文解释（可以补充词性）`;
+
+  const completion = await client.chat.completions.create({
+    model: process.env.OPENAI_MODEL || 'gpt-3.5-turbo',
+    messages: [
+      {
+        role: 'system',
+        content: '你是一个英语翻译助手，专门将中文翻译成英文单词。只返回JSON格式数据。',
+      },
+      { role: 'user', content: prompt },
+    ],
+    temperature: 0.5,
+  });
+
+  const content = completion.choices[0]?.message?.content;
+  if (!content) {
+    throw new Error('OpenAI 返回内容为空');
+  }
+
+  const jsonStr = content.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
+  const words: Word[] = JSON.parse(jsonStr);
+
+  return words;
+}

@@ -17,3 +17,9 @@ export const difficultyOptions: DifficultyOption[] = [
   { value: 'cet6', label: '六级', description: 'CET-6 进阶词汇' },
   { value: 'graduate', label: '考研', description: '考研/雅思/托福词汇' },
 ];
+
+export const difficultyLabels: Record<DifficultyLevel, string> = {
+  cet4: '四级',
+  cet6: '六级',
+  graduate: '考研',
+};
